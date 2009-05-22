@@ -19,22 +19,20 @@
 
 #include "VpnController.h"
 
+class ServiceManager;
+
 class OpenVpnController : public VpnController {
+private:
+    ServiceManager *mServiceManager;
 
 public:
     OpenVpnController();
-    virtual ~OpenVpnController() {}
+    virtual ~OpenVpnController();
 
     int start();
     int stop();
     int enable();
     int disable();
-
-protected:
-
-private:
-    int startServiceDaemon();
-    int stopServiceDaemon();
 };
 
 #endif
