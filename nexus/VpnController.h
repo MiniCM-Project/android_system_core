@@ -33,14 +33,14 @@ public:
     virtual int start();
     virtual int stop();
 
+    virtual int setProperty(const char *name, char *value);
+    virtual const char *getProperty(const char *name, char *buffer,
+                                    size_t maxlen);
+
+private:
     virtual int enable();
     virtual int disable();
 
-    struct in_addr &getVpnGateway() { return mVpnGateway; }
-    int setVpnGateway(const char *vpnGw);
-    int setVpnGateway(struct in_addr *vpnGw);
-
-protected:
 };
 
 #endif
