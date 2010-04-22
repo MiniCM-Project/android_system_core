@@ -17,15 +17,24 @@
 #ifndef PARSER_H_
 #define PARSER_H_
 
-struct action;
+#define T_EOF 0
+#define T_TEXT 1
+#define T_NEWLINE 2
 
-void drain_action_queue(void);
-struct action *action_remove_queue_head(void);
-void action_add_queue_tail(struct action *act);
-void action_for_each_trigger(const char *trigger,
-                             void (*func)(struct action *act));
-int action_queue_empty(void);
-void queue_property_triggers(const char *name, const char *value);
-void queue_all_property_triggers();
+struct parse_state
+{
+    char *ptr;
+    char *text;
+    int line;
+    int nexttoken;
+    void *context;
+    void (*parse_line)(struct parse_state *state, int nargs, char **args);
+    const char *filename;
+};
+
+int lookup_keyword(const char *s);
+void DUMP(void);
+int next_token(struct parse_state *state);
+void parse_error(struct parse_state *state, const char *fmt, ...);
 
 #endif /* PARSER_H_ */
